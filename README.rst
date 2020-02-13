@@ -17,9 +17,10 @@ DoT-score computes how well the two vectors (cell state change and treatment cha
 A positive DoT-score for a cell on the landscape indicates that the treatment causes cells to shift towards that state (starting from the point of origin), while a negative DoT-score indicates a shift away from that state. We provide a diagram below to illustrate this concept and a concrete example here: **FILL IN....**
 
 
-.. figure:: images/DoT_diagram.jpg
+.. figure:: images/DoT_diagram.png
    :height: 400px
    :scale: 25 %
+   :align: center
 
 
 More specifically, DoT score (**s**) calculates the dot product (proportional to the angle) between the treatment vector and the vector of gene expression (scaled) for each cell on the landscape: **s** = **X** **v**, where **X** is a matrix cells x genes with scaled expression values and **v** is a vector of weights (e.g. log2(Fold Change) for each gene). 
