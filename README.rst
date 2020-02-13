@@ -1,11 +1,12 @@
 .. role:: pyth(code)
   :language: python
 
-DoTscore
+dotscore
 ========
 
 dotscore is a python module created to enable easy computation of DoT-scores (Direction of Transition scores) as presented in Kucinski et al. 2020 (link).
 DoT-score is method aiding interpretation of transcriptional changes (e.g. lists of differentially expressed genes) using scRNA-Seq landscapes as a reference. The module is built on top of the scanpy module (https://scanpy.readthedocs.io/en/stable/)
+
 
 DoT-score concept
 -----------------
@@ -25,6 +26,44 @@ A positive DoT-score for a cell on the landscape indicates that the treatment ca
 
 More specifically, DoT score (**s**) calculates the dot product (proportional to the angle) between the treatment vector and the vector of gene expression (scaled) for each cell on the landscape: **s** = **X** **v**, where **X** is a matrix cells x genes with scaled expression values and **v** is a vector of weights (e.g. log2(Fold Change) for each gene). 
 To provide a measure of statistical significance, we simulate the DoT-score by randomly choosing weights and genes and computing a z-score.
+
+
+Usage
+-----
+
+Dotscore uses AnnData objects as inputs. Core functions are listed below:
+
+:pyth:`get_DoTscore` - calculating DoT-score for each cell, arguments:
+  - :pyth:`adata` - an AnnData object
+  - :pyth:`de` - pandas DataFrame, which contains one column with gene names and one column with weights (e.g. log2(Fold Change) coming from differential expression analysis)
+  - :pyth:`simno` - number of simulations to run for z-score estimation (if :pyth:`zscore` is :pyth:`True`)
+  - :pyth:`id_col` - name of the column in de, which contains the gene names (default: "target")
+  - :pyth:`weight_col` - name of the column in de, which contains the weights (default: "log2FoldChange")
+    
+    Returns: Pandas Series with the respective DoT-scores per cell.
+
+:pyth:`custom_scale` - equivalent to the scaling function from the scanpy package, but allows scaling using a vector of chosen mean expression values - thus allowing choice of point of origin.
+  - :pyth:`adata` - an AnnData object
+  - :pyth:`mean` - numpy array with mean gene expression used for scaling. Needs to match the genes in the AnnData object. If None, the global mean will be used.
+
+    Caution: The AnnData object is modified in place.
+
+:pyth:`get_genescore_pergroup` - Computes the contributions coming from each gene, which when summed up generate the DoT-score. To help interpretation contributions are averages per group of cell specified (:pyth:`group` argument). This tool helps identifying the genes with the strongest influence on the DoT-score (positive or negative) in chosen areas of the scRNA-Seq landscape.
+  - :pyth:`adata` - an AnnData object
+  - :pyth:`de` - pandas DataFrame, which contains one column with gene names and one column with weights (e.g. log2(Fold Change) coming from differential expression analysis)
+  - :pyth:`id_col` - name of the column in de, which contains the gene names (default: "target")
+  - :pyth:`weight_col` - name of the column in de, which contains the weights (default: "log2FoldChange")
+  - :pyth:`group` - name of the column in the :pyth:`.obs` slot of the AnnData object which contains cell groups (needs to be categorical), default: 'leiden')
+  - :pyth:`sortby` - name of the cell group by which the values will be sorted, default: '0'
+  - :pyth:`gene_symbols` - Optional: name of the column in the :pyth:`.var` slot, which contains gene symbol annotations.
+
+    Returns: pandas DataFrame with each cell group as a column and genes as rows. Values correspond to the average contributions coming from each gene to the DoT-score to the respective cell group.
+
+
+Some convenience functions:
+  - :pyth:`cmap_RdBu` - creates an asymmetric red/blue color scale for provided values (i.e. white value is fixed at 0)
+  - :pyth:`qfilt` - Returns quantile-filtered values. Changes all values above a certain quantile to the value equal to that quantile. Useful for handling outlier in noisy scRNA-Seq data.
+
 
 Installation
 ------------
@@ -48,19 +87,3 @@ Python > 3.4 and pip are required. To install the package:
 .. code-block:: text
 
     pip install -e ./dotscore/
-
-Usage
------
-
-Dotscore is based on the AnnData/scanpy framework, thus AnnData objects are starting points for most functions. Module exports the following functions:
-
-- custom_scale
-- get_DoTscore
-- 
-
-To compute the DoT-score for cell of a given 
-
-
-make_app() accepts the following arguments:
-  - :pyth:`adata` - an AnnData object
-
