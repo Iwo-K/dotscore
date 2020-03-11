@@ -15,7 +15,7 @@ In a scRNA-Seq landscape gene expression values can be scaled to a chosen point 
 Now consider a treatment (gene knockout, chemical perturbation etc.) to a given cell population followed by a transcriptomic readout. The changes in gene expression (e.g. log2(Fold Change) from differential expression) are also a vector - the positive and negative values indicating shifts in the many dimensions of gene expression space.
 
 DoT-score computes how well the two vectors (cell state change and treatment change) are aligned and enable visualisation on the scRNA-Seq landscape.
-A positive DoT-score for a cell on the landscape indicates that the treatment causes cells to shift towards that state (starting from the point of origin), while a negative DoT-score indicates a shift away from that state. We provide a diagram below to illustrate this concept and a concrete example here: **FILL IN....**
+A positive DoT-score for a cell on the landscape indicates that the treatment causes cells to shift towards that state (starting from the point of origin), while a negative DoT-score indicates a shift away from that state. We provide a diagram below to illustrate this concept and a concrete example here: examples/dotscore_example.ipynb
 
 
 .. figure:: images/DoT_diagram.png
