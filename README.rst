@@ -36,6 +36,8 @@ Dotscore uses AnnData objects as inputs. Core functions are listed below:
 :pyth:`get_DoTscore` - calculating DoT-score for each cell, arguments:
   - :pyth:`adata` - an AnnData object
   - :pyth:`de` - pandas DataFrame, which contains one column with gene names and one column with weights (e.g. log2(Fold Change) coming from differential expression analysis)
+  - :pyth:`allfolds` - numpy array or pandas Series, which contain a set of weights (e.g. log2FoldChanges) used for simulations. This is the background distribution of weights to be drawn from.
+  - :pyth:`allgenes` - numpy array or pandas Series, which contains all gene names expressed in the assayed cell population, for instance if using log2FoldChange these are all genes used for differential expression analysis.
   - :pyth:`simno` - number of simulations to run for z-score estimation (if :pyth:`zscore` is :pyth:`True`)
   - :pyth:`id_col` - name of the column in de, which contains the gene names (default: "target")
   - :pyth:`weight_col` - name of the column in de, which contains the weights (default: "log2FoldChange")
