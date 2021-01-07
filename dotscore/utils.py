@@ -141,8 +141,7 @@ def _calc_DoTscore_matrix(adata,
                           id_col = 'target',
                           weight_col = 'log2FoldChange'):
     """ Generates a cells x genes FCscore matrix, which contains multiplied values
-    if scaled expression values and the observed fold change. This is a faster
-    version of the function get_FCscore_matrix2.
+    if scaled expression values and the observed fold change. 
 
     Parameters
     ----------
@@ -171,8 +170,11 @@ def _calc_DoTscore_matrix(adata,
     des = df[weight_col].values
 
     scores = np.zeros(adata.shape)
+    #' Start with all 0s and update positions just for the genes with non0 values in des (should be faster)
 
-    for i in range(scores.shape[1]):
+    toupdate = np.where(df[weight_col] != 0)
+
+    for i in toupdate:
         if(adata.X.ndim > 1): scores[:,i] = adata.X[:,i] * des[i]
         else: scores[:,i] = adata.X[i] * des[i]
 

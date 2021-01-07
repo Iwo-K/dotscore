@@ -1,6 +1,9 @@
 dotscore.egg-info/
-testing.ipynb
-testing_heavy.ipynb
+testing_ref.ipynb
+testing_ref2.ipynb
+testing_heavy_ref.ipynb
+examples/dotscore_example_ref.ipynb
+
 .ipynb_checkpoints/
 *__pycache__*
 *.DS_Store
