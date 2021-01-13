@@ -49,7 +49,7 @@ def get_DoTscore(adata,
                  simno = 500,
                  id_col = 'target',
                  weight_col = 'log2FoldChange',
-                 zscore = False):
+                 zscore = True):
     """ Generated a z-score version of the FCscore. For each cells the scaled expression values
     are multiplied by fold change supplied in de (only if present in that data frame)
     and summed up. This process is also simmulated with random genes and random fold
@@ -105,7 +105,9 @@ def get_DoTscore(adata,
         
         score = (score - stat['mean']) / stat['sd']
 
-    return(score)
+        return(score)
+    else:
+        return(pd.Series(score, index = adata.obs.index))
 
 
 def qfilt(values, qmax = 0.99, qmin = 0.01):
