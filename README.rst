@@ -4,7 +4,7 @@
 dotscore
 ========
 
-dotscore is a python module created to enable easy computation of DoT-scores (Direction of Transition scores) as presented in Kucinski et al. 2020 (link).
+dotscore is a python module created to enable easy computation of DoT-scores (Direction of Transition scores) as presented in Kucinski et al. 2020 (`link <https://www.embopress.org/doi/full/10.15252/embj.2020104983>`_).
 DoT-score is method aiding interpretation of transcriptional changes (e.g. lists of differentially expressed genes) using scRNA-Seq landscapes as a reference. The module is built on top of the scanpy module (https://scanpy.readthedocs.io/en/stable/)
 
 
